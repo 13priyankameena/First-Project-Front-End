@@ -1,0 +1,131 @@
+
+/* header{
+    width: 1510px;
+    height: 70px;
+   padding-top: 10px;
+   margin: auto;
+
+  
+   
+}
+.commanheader
+{
+   
+width:100%;
+height: 100%;
+border-top:1px solid #cfd9df;
+display: flex;
+
+ justify-content: space-between;
+    align-items: center;
+
+
+}
+.commanheaderbox1
+{
+    height:100%;
+    width: 20%;
+    border-right:1px solid #cfd9df;
+    border-bottom:1px solid #cfd9df;
+    color: rgb(105, 107, 121);
+    text-align: center;
+    display: flex;
+
+ justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    padding-left:40px;
+    font-size: 20px;
+
+}
+.commanheaderbox2
+{
+    
+    width:80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+.chbx21
+{
+    padding-left:50px;
+    width:400px;
+    height:40px;
+    padding-top:10px;
+background-color: #e2ebf0;
+border-radius: 30px;
+}
+.chbx21 input
+{
+    border: none;
+    height: 90%;
+    width:90%;
+    background-color:#e2ebf0;
+    outline: none;
+}
+.chbx22
+{
+    padding-right: 30px;
+    display:flex;
+     justify-content: space-between;
+    align-items: center;
+padding-top:10px;
+gap:20px;
+font-size: 20px;
+} */
+/* .imageprofile
+{
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+    background-color: #c3cfe2;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+} */
+/* .maincontainer
+{
+    width:1510px;
+    margin:auto;
+    display: flex;
+}
+.leftcontainer
+{
+   
+    width: 20%;
+    height: 700px;
+   
+    border: 2px solid white;
+
+}
+.rightcontainer
+{
+    width:80%;
+    /* background-color: #f5f7fa; */
+    /* height: 700px; */
+
+/* .leftcont1
+{
+    height:80px;
+    border-bottom:1px solid #cfd9df;
+}
+.Profilelink
+{
+    margin:20px 10px 30px 10px;
+    color: rgb(105, 107, 121);
+    padding: 20px 40px 2px 20px;
+}
+ nav a
+{
+    text-decoration: none;
+    padding: 10px 40px 2px 40px;
+    color: rgb(105, 107, 121);
+    font-size: 18px;
+    
+}
+.rightcontainer
+{
+    padding: 20px;
+} */
