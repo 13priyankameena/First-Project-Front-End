@@ -88,7 +88,7 @@ function Headers() {
           {/* Profile Avatar */}
           <IconButton onClick={handleClick}>
             <Avatar sx={{ bgcolor: "secondary.main", fontSize: "0.9rem" }}>
-              PM
+              P    M
             </Avatar>
           </IconButton>
 
