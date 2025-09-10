@@ -63,7 +63,7 @@ function FormRightTable({ refresh }) {
           </TableRow>
 
           <TableRow>
-            <TableCell><b>Comments</b></TableCell>
+            <TableCell><b>Commentsss</b></TableCell>
             <TableCell>{latest.Comment}</TableCell>
           </TableRow>
         </TableBody>
