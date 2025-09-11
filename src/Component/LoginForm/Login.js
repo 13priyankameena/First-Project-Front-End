@@ -51,7 +51,7 @@ try {
     const response = await fetch("http://localhost:8000/chartDB/logins", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, password }),
+      body: JSON.stringify({ username: username, password: password }),
     });
 
     console.log("Sending:", { username, password });
@@ -60,7 +60,7 @@ try {
     const data = await response.json();
 
     if (data.success) {
-      navigate("/Profile");
+      navigate("/Dashboard");
     } else {
       setError({ password: "Invalid Username or Password" });
     }
@@ -71,38 +71,7 @@ try {
 };
 
 
-    // let error={};
-
-    // if(!Username)
-    // {
-    //   error.Username="Username is required";
-    // }
-    // if(!password)
-    // {
-    //   error.password="Password is required";
-    // }
     
-    // else 
-    //   {
-    //           if(Username && Username!=="priyanka")
-    //                {
-    //                    error.Username="Invalid Username";
-      
-    //                }
-    //          if(password && password!=="priyanka")
-    //               {
-    //                    error.password="Invalid Password";
-      
-    //               }
-    //  }
-    //  if(Username==="priyanka" && password==="priyanka")
-    // {
-    //   navigate("./Profile");
-    // }
-     
-    //  setError(error);
-    // }
-
     
 
   return (

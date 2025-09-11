@@ -1,5 +1,5 @@
 import FormRightTable from "./FormRightTable.js";
-import { Box, flex, height } from "@mui/system";
+import { Box, flex, height, padding } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
@@ -98,10 +98,12 @@ function Forms() {
     return (
 
 
-        <Box sx={{ display: "flex", gap: 5, mt: 3, ml: 5, width: "95%" }}>
+        <Box sx={{ mt: 3, ml: 9, width: "95%" }}>
+           <Box sx={{width:"90%",backgroundColor:"primary",height:50, borderTopLeftRadius: 4,borderTopRightRadius:4,
+                boxShadow: 2,}}></Box>
             <Box sx={{
-                width: "50%", border: "1px solid #ccc", backgroundColor: "white", padding: 4,
-                borderRadius: 2,
+                width: "90%", border: "1px solid #ccc", backgroundColor: "white", padding: 4,
+                borderBottomLeftRadius: 4,borderBottomRightRadius:4,
                 boxShadow: 2,
             }}>
 
@@ -165,7 +167,7 @@ function Forms() {
                     </FormControl>
 
                     {/* Radio Buttons */}
-                    <FormControl margin="normal">
+                    <FormControl margin="normal" sx={{mr:20}}>
                         <FormLabel>Would you recommend this to a friend?</FormLabel>
                         <RadioGroup
                             name="RecommendToFriend"
@@ -218,7 +220,7 @@ function Forms() {
 
                     {/* Textarea */}
                     <FormControl fullWidth margin="normal">
-                        <FormLabel>Any Comments or Suggestions</FormLabel>
+                        <FormLabel sx={{paddingY:2}}>Any Comments or Suggestions</FormLabel>
                         <TextareaAutosize
                             minRows={4}
                             name="Comment"
