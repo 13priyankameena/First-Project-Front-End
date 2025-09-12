@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './LoginStylesheet.css';
 import { FaUser,FaLock } from "react-icons/fa";
-
+import { LOGIN_API } from '../../API/api.js';
 
 
 export const Login = () => {
@@ -45,30 +45,22 @@ export const Login = () => {
   const handleSubmit = async (e) => {
   
     e.preventDefault();
-//************** */
+
 
 try {
-    const response = await fetch("http://localhost:8000/chartDB/logins", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, password: password }),
-    });
-
-    console.log("Sending:", { username, password });
-
-
-    const data = await response.json();
-
-    if (data.success) {
-      navigate("/Dashboard");
-    } else {
-      setError({ password: "Invalid Username or Password" });
+      const data = await LOGIN_API(username, password);
+      if (data.success) {
+        navigate("/Dashboard");
+      } else {
+        setError({ password: "Invalid Username or Password" });
+      }
+    } catch (err) {
+       console.error("Error:", err);
+      setError({ password: "Something went wrong!" });
     }
-  } catch (err) {
-    console.error("Error:", err);
-    setError({ password: "Something went wrong!" });
-  }
-};
+  };
+
+    
 
 
     

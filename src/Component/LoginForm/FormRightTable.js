@@ -1,5 +1,6 @@
 
 import React, { useEffect,useState} from "react";
+import { FetchFormData } from "../../API/api.js";
 import {
     Table,
     TableBody,
@@ -17,16 +18,21 @@ function FormRightTable({ refresh }) {
 
 const [formData, setFormTable] = useState([]);
 
-  useEffect(() => {
-      fetch("http://localhost:8000/chartDB/forms")
+ useEffect(() => {
+  const LoadFormData = async () => {
+    try {
+      const formData = await FetchFormData();
+      console.log("Fetched Form Data:", formData)
+      setFormTable(formData);
+    }
+    catch(err){
+      console.error("Error while fetching form data:", err);
+    }
 
-  .then((res) => res.json())
-  .then((Data) => {
-    console.log("Fetched Data:", Data);
-    setFormTable(Data);
-  })
-      .catch((err) => console.error(err));
-  }, [refresh]);
+  }
+      LoadFormData();
+
+ },[refresh]);
 
 
   return (

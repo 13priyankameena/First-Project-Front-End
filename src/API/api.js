@@ -1,0 +1,66 @@
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+//LOGIN API
+
+export const LOGIN_API = async(username,password) => {
+
+    try {
+    const res = await fetch(`${BASE_URL}chartDB/logins`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Login API Error:", err);
+    throw err;
+  }
+};
+
+//DASHBOARD API -FETCH CHART DATA
+
+export const FetchChartData = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}chartDB/chartdatas`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Fetch Chart Data Error:", err);
+    throw err;
+  }
+};
+
+//FORMS API - SEND FORM DATA
+
+
+export const CreateForm = async (formData) => {
+  try {
+    const response = await fetch(`${BASE_URL}chartDB/forms/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+   return await response.json();
+  } catch (err) {
+     console.error(" Create Form Error:",err);
+     throw err;
+  }
+}    
+
+//FETCH FORM DATA FOR TABLE
+
+export const FetchFormData = async () => {
+    try {
+        const res = await fetch(`${BASE_URL}chartDB/forms`);
+        const data = await res.json();
+        return data;
+    }
+    catch (err) {
+    console.error("Fetch Chart Data Error:", err);
+    throw err;
+}
+};
+   

@@ -13,20 +13,24 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Typography, Box } from "@mui/material";
+import { FetchChartData } from "../../API/api.js";
 
 function Dashboard() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/chartDB/chartdatas")
-
-  .then((res) => res.json())
-  .then((data) => {
-    console.log("Fetched Data:", data);
-    setData(data);
-  })
-      .catch((err) => console.error(err));
-  }, []);
+  const LoadChartData = async () => {
+    try {
+      const ChartData = await FetchChartData();
+      console.log("Fetched Chart Data:",ChartData);
+      setData(ChartData);
+    }
+    catch (err) {
+      console.error("Error while fetching chart data:", err);
+    }
+  }
+       LoadChartData();        
+}, []);
 
   useEffect(() => {
     document.title = "Dashboard | Priyanka";

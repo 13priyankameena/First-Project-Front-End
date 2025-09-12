@@ -1,6 +1,7 @@
 import FormRightTable from "./FormRightTable.js";
 import { Box, flex, height, padding } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { CreateForm } from "../../API/api.js";
 import {
     TextField,
     Typography,
@@ -60,18 +61,11 @@ function Forms() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await fetch("http://localhost:8000/chartDB/forms/create", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+       try {
+      const result = await CreateForm(formData);
 
-            const result = await response.json();
-            if (response.ok) {
-                alert("Form submitted successfully ");
-
-                // reset form
+    if (result.success) {
+      alert(result.message);
                 setFormData({
                     Name: "",
                     Email: "",
@@ -99,8 +93,8 @@ function Forms() {
 
 
         <Box sx={{ mt: 3, ml: 9, width: "95%" }}>
-           <Box sx={{width:"90%",backgroundColor:"primary",height:50, borderTopLeftRadius: 4,borderTopRightRadius:4,
-                boxShadow: 2,}}></Box>
+           {/* <Box sx={{width:"90%",backgroundColor:"",height:50, borderTopLeftRadius: 4,borderTopRightRadius:4,
+                boxShadow: 2,}}></Box> */}
             <Box sx={{
                 width: "90%", border: "1px solid #ccc", backgroundColor: "white", padding: 4,
                 borderBottomLeftRadius: 4,borderBottomRightRadius:4,
