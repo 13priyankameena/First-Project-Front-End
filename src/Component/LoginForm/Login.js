@@ -76,7 +76,7 @@ try {
             </div>
             
 
-            {Error.Username && <p style={{color:"red"}}>{Error.Username}</p>}
+            {Error.username && <p style={{color:"red"}}>{Error.username}</p>}
 
             <div className="input-box">
             <input type="password" placeholder='Password'  value={password} onChange={handlePasswordChange}></input><FaLock className='icon' />
