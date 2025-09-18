@@ -25,7 +25,7 @@ function Headers() {
 
   // logout
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    
     handleClose();
     navigate("/"); // go to login page
   };

@@ -1,70 +1,189 @@
-# Getting Started with Create React App
+# PROJECT TITLE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple webpage that include login, logout, Dashboard, Table, Form
 
-## Available Scripts
+# In Front-End
 
-In the project directory, you can run:
+  1--Create 2 folder in  src
 
-### `npm start`
+  a-API
+	a.1--api.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  b-Component
+	b.1--Login-Form
+		
+		b.1.1--Login.js
+		b.1.2--LoginStylesheet.css
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+		b.1.3--Header.js
+		b.1.4--Layout.js
+		b.1.5--LeftSidebar.js
+		
+		b.1.6--Dashboard.js
+		b.1.7--Forms.js
+		b.1.8--FormRightTable.js
+		b.1.9--Table.js
 
-### `npm test`
+ c-.env file
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Package Notes
 
-### `npm run build`
+Import and Export are used for sharing components, functions, and classes between files.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+When we create a component in React and import it into another file, we can use it like this:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<Component />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Package installed
 
-### `npm run eject`
+Core react dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1---react
+2---react-dom
+3---react dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Styling Library
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1--@mui/material
+2--@mui/icons-material
+3--@emotion/react & @emotion/styled
+4--react-icons
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+# Routing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1--react-router-dom
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Data Handling
 
-### Code Splitting
+1--axios
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+	Axios is an HTTP client used to fetch (GET) or send (POST, PUT, DELETE) data from/to a Backend API (like Node.js/Express, etc.).
 
-### Analyzing the Bundle Size
+2--recharts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+	For Data visualization (charts, graphs, pie charts etc.)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+# ---For creating Header, Layout, LeftSidebar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+--------In all component I used Meterial UI 
 
-### Deployment
+   this is very popular UI library
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+(for use install it by    
 
-### `npm run build` fails to minify
+npm install @mui/material @emotion/react @emotion/styled)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+and using in it all component by import it.
+
+#     ----For Creating Header.js------- 
+
+1--Meterial Ui component :-Appbar, Toolbar  ,Typography  ,IconButton  , Avatar,Menu,MenuItem,Box,IONotification 
+
+ 
+
+2---in Header.js used  
+
+	--LocalStorage and token for logout  
+
+	--LocalStorge—StorageSpace of browser 
+
+        Token—Server give to a Client 
+
+
+#   -----For Creating Layout.js
+
+
+1--use header component by import
+2--LeftSidebar
+3--RightSidebar
+
+
+# ----for Creating LeftSidebar
+
+1--import { Box, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+
+	    <ListItemButton component={Link} to="/Forms">
+		
+
+# ----for RightSidebar
+
+1---In layoutjs    const Layout = ({ children })
+			for using wrapper component
+
+
+# -----for app.js file
+
+1--All components are import here
+2--import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
+
+# ---for Login page
+
+1---const [state, setState] = useState(initialValue);
+	This is React hook which is used for handle data
+2---username and password validation 
+
+
+# ---DashBoard
+
+1---Two graph use for showing data from MongoDB   (import from rechart)
+	1.a--BarChart
+	2.b--Pie chart
+
+    ---UseEffect used  for get data (fetch API) For :--
+
+		Dashboard
+		Table
+		Form
+
+# How Login Page work
+
+
+        [ User (Browser) ]
+        |
+        | (1) Enter username + password
+        v
+[ React Frontend ]
+        |
+        | (2) Call LOGIN_API(username, password)
+        |     → fetch("http://localhost:8000/chartDB/logins")
+        v
+[ Express Backend (Node.js) ]
+        |
+        | (3) Route matches: POST /chartDB/logins
+        v
+[ Controller: getuserLogin() ]
+        |
+        | (4) Extract { username, password } from req.body
+        | (5) Query MongoDB → login.findOne({ username, password })
+        v
+[ MongoDB Database ]
+        |
+        | (6) Returns User Document if found
+        v
+[ Controller ]
+        |
+        | (7) if user → res.json({ success: true, message: "Login successful" })
+        |     else     → res.json({ success: false, message: "Invalid username or password" })
+        v
+[ React Frontend ]
+        |
+        | (8) if data.success → navigate("/Dashboard")
+        |     else → show error message
+        v
+[ User (Browser) ]
+        |
+        | (9) Sees Dashboard (success) 
+        |     OR Error message ( failure)
+
+
+
+
+
+
+
+
