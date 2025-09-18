@@ -84,15 +84,6 @@ and using in it all component by import it.
 
  
 
-2---in Header.js used  
-
-	--LocalStorage and token for logout  
-
-	--LocalStorge—StorageSpace of browser 
-
-        Token—Server give to a Client 
-
-
 #   -----For Creating Layout.js
 
 
