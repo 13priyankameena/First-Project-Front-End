@@ -10,6 +10,7 @@ export const LOGIN_API = async(username,password) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
+      credentials: "include"  // Without this, browser will ignore cookies from the response.
     });
     const data = await res.json();
     return data;
@@ -64,3 +65,20 @@ export const FetchFormData = async () => {
 }
 };
    
+
+// api.js
+export const SIGNUP_API = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}chartDB/logins/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    return await response.json(); // API response
+  } catch (err) {
+    console.error("Error in SIGNUP_API:", err);
+    return { success: false, message: "Network error" };
+  }
+};
+

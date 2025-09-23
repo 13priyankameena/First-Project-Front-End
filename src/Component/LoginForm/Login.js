@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './LoginStylesheet.css';
 import { FaUser,FaLock } from "react-icons/fa";
 import { LOGIN_API } from '../../API/api.js';
+import { Link } from "react-router-dom";
 
 
 export const Login = () => {
@@ -11,6 +12,11 @@ export const Login = () => {
   const[password,setpassword]=useState("");
   const [Error, setError] = useState({});
   const navigate=useNavigate();
+
+   useEffect(() => {
+          document.title = "Login Page";
+      }, []);
+  
 
   const handleUserNameChange = (e) =>
   {
@@ -72,14 +78,16 @@ try {
         <form onSubmit={handleSubmit}>
             <h1>Login</h1>
             <div className="input-box">
-            <input type="text" placeholder='Username' value={username}  onChange={handleUserNameChange}></input><FaUser className='icon' />
+            <input type="text" placeholder='Username' value={username}  
+            onChange={handleUserNameChange}></input><FaUser className='icon' />
             </div>
             
 
             {Error.username && <p style={{color:"red"}}>{Error.username}</p>}
 
             <div className="input-box">
-            <input type="password" placeholder='Password'  value={password} onChange={handlePasswordChange}></input><FaLock className='icon' />
+            <input type="password" placeholder='Password'  value={password}
+             onChange={handlePasswordChange}></input><FaLock className='icon' />
             </div>
 
 
@@ -90,6 +98,12 @@ try {
                 <a href="#">Forgot Password</a>
             </div>
             <button type="submit">Login</button>
+           
+            <div className='signup'>
+               <label>Don't have you an account ? </label>
+              <Link to="/SignUp">Sign Up</Link>
+            </div>
+            
             
         </form>
 
