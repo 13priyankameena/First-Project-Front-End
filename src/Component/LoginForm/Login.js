@@ -56,12 +56,13 @@ export const Login = () => {
 
 try {
       const data = await LOGIN_API(username, password);
-      if (data.success) {
+      if (data.token) {
 
         Cookies.set("token",data.token,{expires : 1});
+
         console.log("Token Saved",data.token);
 
-        
+
         navigate("/Dashboard");
       } else {
         setError({ password: "Invalid Username or Password" });

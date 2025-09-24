@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { Avatar, Menu, MenuItem, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Headers() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,8 +26,13 @@ function Headers() {
 
   // logout
   const handleLogout = () => {
+
+    Cookies.remove("token");
+    console.log("Token removed, user logged out");
     
     handleClose();
+    
+    
     navigate("/"); // go to login page
   };
 

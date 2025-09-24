@@ -1,18 +1,22 @@
-import Cookies from js-Cookies;
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 
 //LOGIN API
 
 export const LOGIN_API = async(username,password) => {
 
     try {
+
     const res = await fetch(`${BASE_URL}chartDB/logins`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
-      credentials: "include"  // Without this, browser will ignore cookies from the response.
+    
     });
+
+
     const data = await res.json();
     return data;
   } catch (err) {
