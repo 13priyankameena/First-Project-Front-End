@@ -28,13 +28,21 @@ function Headers() {
   const handleLogout = () => {
 
     // Cookies.remove("token");
+    
+
+     console.log("Before remove:", Cookies.get("token"));
+
+     Cookies.remove("token");
+
+      console.log("After remove:", Cookies.get("token"));
+
     console.log("Token removed, user logged out");
 
     handleClose();
     
     
     navigate("/"); // go to login page
-    Cookies.remove("token");
+   
   };
 
   return (
