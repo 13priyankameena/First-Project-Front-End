@@ -1,5 +1,6 @@
 import { Box, flex, height } from "@mui/system";
 import React, { useEffect,useState} from "react";
+import { Employees_tble, Students_tble } from "../../API/api.js";
 import {
     Table,
     TableBody,
@@ -18,16 +19,38 @@ const [employees, setEmployees] = useState([]);
 
 //fetch students collection
 
-  useEffect(() => {
-    fetch("http://localhost:8000/chartDB/students")
 
-  .then((res) => res.json())
-  .then((students) => {
-    console.log("Fetched Data:", students);
-    setStudent(students);
-  })
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+    const Load_Student_Data = async() => {
+        try {
+            const StudentData = await Students_tble();
+            console.log("Fetched Data:", StudentData);
+             setStudent(StudentData);
+        } catch (error) {
+           console.error("Error while fetching form data:", error);
+        }
+
+        
+    }
+    Load_Student_Data();
+},[])
+
+useEffect(() => {
+    const Load_Employees_Data = async() =>{
+        try {
+            const EmployeeData = await Employees_tble();
+            console.log("Fetched Employees:", EmployeeData);
+            setEmployees(EmployeeData);
+        } catch (error) {
+            console.error("Error while fetching form data:", error);
+        }
+
+        
+    }
+
+    Load_Employees_Data();
+},[])         // if we not use [] then infinite loop occure because of sending request
+                // single dependency send request only one time and receive data one time
 
 
     useEffect(() => {
@@ -35,17 +58,7 @@ const [employees, setEmployees] = useState([]);
     }, [])
 
 
-    //fetch employees collection
-
-    useEffect(() => {
-    fetch("http://localhost:8000/chartDB/employees")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched Employees:", data);
-        setEmployees(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+   
 
     return (
         <>

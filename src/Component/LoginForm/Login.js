@@ -58,7 +58,7 @@ try {
       const data = await LOGIN_API(username, password);
       if (data.token) {
 
-        Cookies.set("token",data.token,{expires : 1});
+        Cookies.set("token",data.token);
 
         console.log("Token Saved",data.token);
 
