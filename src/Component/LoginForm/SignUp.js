@@ -78,7 +78,7 @@ function SignUp() {
 
       setTimeout(() => {
         navigate('/');
-      }, 1000);
+      }, 2000);
 
     } else {
 
@@ -108,7 +108,7 @@ function SignUp() {
 
         <TextField id="tf3"
           label="Enter Password" variant="standard" sx={{ width: 300 }} value={password}
-          onChange={handlePasswordChange} /><br></br><br></br>
+          onChange={handlePasswordChange} type='password'/><br></br><br></br>
 
         {Error.password && <p style={{ color: "red" }}>{Error.password}</p>}
 

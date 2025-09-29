@@ -21,18 +21,19 @@ function Headers() {
 
   // close menu
   const handleClose = () => {
+    
     setAnchorEl(null);
   };
 
   // logout
   const handleLogout = () => {
 
-    // Cookies.remove("token");
+    
     
 
      console.log("Before remove:", Cookies.get("token"));
 
-     Cookies.remove("token");
+     Cookies.remove("token",{path:"/"});
 
       console.log("After remove:", Cookies.get("token"));
 

@@ -9,7 +9,7 @@ import TablePage from './Component/LoginForm/Table.js';
 import Forms from './Component/LoginForm/Forms.js';
 import SignUp from './Component/LoginForm/SignUp.js';
 import Dashboard from './Component/LoginForm/Dashboard.js';
-
+import OTPform from './Component/LoginForm/OTPverify.js';
 
 
 
@@ -35,6 +35,7 @@ function App() {
         
         <Route path="/Forms" element={<Layout><Forms/></Layout>} />
         <Route path="/Table" element={<Layout><TablePage/></Layout>} />
+        <Route path='/OTPverify' element={<OTPform/>}></Route>
         
        
     

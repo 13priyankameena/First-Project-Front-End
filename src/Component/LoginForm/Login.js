@@ -2,9 +2,10 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './LoginStylesheet.css';
 import { FaUser,FaLock } from "react-icons/fa";
-import { LOGIN_API } from '../../API/api.js';
+import { LOGIN_API, sendOTP } from '../../API/api.js';
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import OTPform from './OTPverify.js';
 
 
 export const Login = () => {
@@ -12,6 +13,7 @@ export const Login = () => {
   const[username,setname]=useState("");
   const[password,setpassword]=useState("");
   const [Error, setError] = useState({});
+  // const [otpSent, setOtpSent] = useState(false);
   const navigate=useNavigate();
 
    useEffect(() => {
@@ -55,21 +57,26 @@ export const Login = () => {
 
 
 try {
-      const data = await LOGIN_API(username, password);
-      if (data.token) {
+      const LoginRes = await LOGIN_API(username, password);
+      console.log(LoginRes);
+     if (LoginRes.success) {
+             console.log("OTP sent successfully", LoginRes);
+             console.log(username);
+       await sendOTP(username);
+        navigate("/OTPverify",{ state: { username } });  Here:
 
-        Cookies.set("token",data.token);
+//OTPverify → route you want to open
+//{ state: { username } } → extra data you’re carrying along
+//So React Router attaches this object to the location of the new page.
 
-        console.log("Token Saved",data.token);
-
-
-        navigate("/Dashboard");
-      } else {
-        setError({ password: "Invalid Username or Password" });
+     }
+  
+      else {
+       setError(LoginRes.message || "Invalid credentials");
       }
     } catch (err) {
        console.error("Error:", err);
-      setError({ password: "Something went wrong!" });
+      setError("Something went wrong!");
     }
   };
 
