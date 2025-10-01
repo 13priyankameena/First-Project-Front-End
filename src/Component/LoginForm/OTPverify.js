@@ -41,6 +41,7 @@ try {
      else {
       console.error("OTP verification failed:", response.message);
       alert(response.message);
+      navigate("/");
     }
   } catch (err) {
     console.error("Error verifying OTP", err);

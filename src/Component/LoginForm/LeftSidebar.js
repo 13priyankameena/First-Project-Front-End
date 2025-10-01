@@ -6,6 +6,7 @@ import { FaWpforms } from "react-icons/fa6";
 import { LiaTableSolid } from "react-icons/lia";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { TbTypography, TbFavicon } from "react-icons/tb";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Box, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
  
@@ -65,6 +66,14 @@ sx={{
           <ListItemText primary="Table" />
         </ListItemButton>
 
+
+        {/*FileUpload */}
+        <ListItemButton component={Link} to="/FileUpload">
+        <ListItemIcon>
+        <UploadFileIcon />
+        </ListItemIcon>
+        <ListItemText primary="FileUpload"/>
+        </ListItemButton>
         
       </List>
     

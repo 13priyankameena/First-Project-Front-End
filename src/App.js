@@ -10,6 +10,7 @@ import Forms from './Component/LoginForm/Forms.js';
 import SignUp from './Component/LoginForm/SignUp.js';
 import Dashboard from './Component/LoginForm/Dashboard.js';
 import OTPform from './Component/LoginForm/OTPverify.js';
+import FileUpload from './Component/LoginForm/FileUpload.js';
 
 
 
@@ -35,6 +36,7 @@ function App() {
         
         <Route path="/Forms" element={<Layout><Forms/></Layout>} />
         <Route path="/Table" element={<Layout><TablePage/></Layout>} />
+        <Route path="/FileUpload" element={<Layout><FileUpload/></Layout>}></Route>
         <Route path='/OTPverify' element={<OTPform/>}></Route>
         
        

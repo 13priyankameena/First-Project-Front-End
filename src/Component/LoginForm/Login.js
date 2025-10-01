@@ -63,7 +63,7 @@ try {
              console.log("OTP sent successfully", LoginRes);
              console.log(username);
        await sendOTP(username);
-        navigate("/OTPverify",{ state: { username } });  Here:
+        navigate("/OTPverify",{ state: { username } }); 
 
 //OTPverify → route you want to open
 //{ state: { username } } → extra data you’re carrying along

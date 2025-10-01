@@ -180,3 +180,43 @@ export const sendOTP = async (username) => {
     throw err;
   }
 };
+
+
+//for sending File Uploaded by FlieUploader
+
+export const File_upload = async(FileName,Base64File) =>{
+  try {
+    const res = await fetch(`${BASE_URL}chartDB/files/create`,{
+      method: "POST",
+      headers: getAuthHeader(),
+      body: JSON.stringify({FileName,Base64File}),
+      
+    });
+    const data = await res.json();
+    return data;
+    
+  } catch (error) {
+    console.error("Problem in File Uploading",error);
+    throw error;
+  }
+};
+
+//for taking File in FileDownload
+
+export const File_download = async() => {
+  try {
+    
+    const res = await fetch(`${BASE_URL}chartDB/files`,{
+      method: "GET",
+      headers:getAuthHeader(),
+      
+    });
+
+    const data = await res.json(); //Converts the response body from backend into JavaScript object/array.
+    return data;
+
+  } catch (error) {
+    console.log("Error in File",error.message);
+    
+  }
+}
