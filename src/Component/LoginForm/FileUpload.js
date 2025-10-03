@@ -1,10 +1,10 @@
 import React, { useState }  from 'react'
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, CircularProgress,Backdrop } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Cookies from "js-cookie";
 import { File_upload } from '../../API/api.js';
 import FileDownload from './FileDownload.js';
-  
+
 
 
 function FileBase64Upload() {
@@ -12,12 +12,18 @@ function FileBase64Upload() {
   const [file, setFile] = useState(null);   
   const [base64File, setBase64File] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [uploading, setUploading] = useState(false);
+   const [error, setError] = useState("");
+   const[message,setMessage] = useState(false);
+  
 
 
 //handle file System
 
 const handleFileChange = async(e) =>{
     const selected = e.target.files[0]; //It gives you the actual File object (metadata + content).
+
+    setError("");
     if(selected)
     {
         setFile(selected);
@@ -26,6 +32,9 @@ const handleFileChange = async(e) =>{
         console.log("BASE64",base64);
 
     }
+
+     // reset input so same file can be chosen again
+    e.target.value = "";
 };
 
 const fileToBase64 = (file) =>{
@@ -49,46 +58,121 @@ if(!base64File || !file)
      return;
 }
 
-const sendFileRes = await File_upload(file.name,base64File);
-    console.log(sendFileRes);
-    if(sendFileRes.success)
-    {
-        console.log("File Uploaded successfully");
-        // refresh right table
-                setRefresh((r) => !r);
-    }
+setUploading(true);
+  setError("");
 
+
+ try {
+     
+
+      const sendFileRes = await File_upload(file.name, base64File);
+      console.log(sendFileRes);
+
+      if (sendFileRes.success) {
+        
+        console.log(sendFileRes.message);
+
+        // reset input
+        setFile(null);
+        setBase64File("");
+        setMessage(true);
+         setTimeout(() => setMessage(false), 3000);
+         
+        // refresh right table
+        setRefresh((r) => !r);
+      }
+      else
+      {
+        setError(sendFileRes.message);
+      }
+    } catch (err) {
+    
+          setError("Something went wrong during upload.");
+          setTimeout(() => setError(""),5000);
+          setFile(null);
+       
+    } finally {
+      setTimeout(() => {
+        setUploading(false);}
+      ,1000);
+        
+        
+  
+    }
 };
 
 
 
   return (
+    <Box>
 
-<Box sx={{Width:"100%",backgroundColor:"white", display:"flex",gap:"10px",padding:"5px"}}>
+{/* <Typography sx={{fontFamily:"monospace",fontWeight:"bold",ml:"80px",color:" #697eb0"}}>UPLOADS FILES</Typography> */}
+<Typography
+  variant="h5"
+  sx={{
+    fontFamily: "monospace",
+    fontWeight: "bold",
+    color: "#3f51b5",
+    mb: 1,
+    ml:16
+  }}
+>
+  UPLOAD FILES
+</Typography>
 
-    <Box sx={{width:"300px",maxHeight:"400px",
-     margin:"20px",
+
+<Box sx={{Width:"100%", display:"flex",gap:"50px",padding:"5px"}}>
+
+
+    {/* Upload Box */}
+
+    <Box sx={{
+      position:"relative",
+      width:"400px",
+      maxHeight:"400px",
+     
      textAlign:"center", 
-     padding:4,
+     padding:10,
      border:"2px dashed #ddd",
      borderRadius: 8,
      backgroundColor:"white",
      boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.2)',
-     }}>
+     
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    
+    
 
+     }}
+     >
 
-       <Typography variant="h6" gutterBottom>
-        Upload a File
-      </Typography>
+     
+     <Box
+     sx={{position:"absolute",
+      top:0,
+      left:0,
+      height:"100%",
+      width:"100%",
+      // backgroundColor: "rgba(255,255,255,0.7)", // white transparent
+  // above image, but behind content
+     backgroundImage: "url('/Images/1.jpg')",
+     opacity:0.1,
+     backgroundSize: "cover",
+    backgroundPosition: "center",
+    borderRadius: 8,
+     }}
+     >
 
-       {/* Hidden input + styled button */}
+     </Box>
+
 
       <input
         accept="*"
-        style={{ display: "none" }}
+        style={{ display: "none",}}
         id="raised-button-file"
         type="file"
         onChange={handleFileChange}
+        
       />
 
 
@@ -98,6 +182,7 @@ const sendFileRes = await File_upload(file.name,base64File);
           component="span"
           startIcon={<UploadFileIcon />}
           sx={{ marginBottom: 2 }}
+          disabled={uploading}
         >
           Choose File
         </Button>
@@ -106,38 +191,53 @@ const sendFileRes = await File_upload(file.name,base64File);
 
   {/* Show selected file name */}
 
+{/* Show selected file or error */}
+          {error ? (
+            <Typography sx={{ color: "red", mb: 2 }}>{error}</Typography>
+          ) : file ? (
+            <Typography sx={{ color: "green", mb: 2 }}>
+              Selected File: <b>{file.name}</b>
+            </Typography>
+          ) : null}
 
-      {file && (
-        <Typography
-          variant="body2"
-          gutterBottom
-          sx={{ marginBottom: 2, color: "green" }}
-        >
-          Selected File: <b>{file.name}</b>
-        </Typography>
-      )}
+
+          {message && (<Typography sx={{ color: "green", mb: 2 }}>File Uploaded SuccessFully</Typography>)}
+          
+        
 
 {/* Upload Button */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleUpload}
+            fullWidth
+            disabled={uploading || !file}
+          >
+             {uploading ? <CircularProgress size={24} color="red" /> : "Upload"}
+          </Button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleUpload}
-        fullWidth
-      >
-        Upload
-      </Button>
-
-
-    </Box>
+         
+          
+        </Box>
 
 {/* Right side --Uploaded File and Download option */}
 
-    <Box sx={{maxWidth:"50%"}}>
+    <Box sx={{Width:"50%"}}>
         
 <FileDownload refresh={refresh}/>
+
+
       
     </Box>
+    
+    </Box>
+{/* Global Loader */}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={uploading}
+      >
+        <CircularProgress color="inherit" /></Backdrop>
+    
     </Box>
    
   )

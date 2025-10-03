@@ -74,7 +74,7 @@ function FileDownload({ refresh }) {
 
     return (
 
-        <TableContainer component={Paper} sx={{ minWidth: "400px", mt: 4 }}>
+        <TableContainer component={Paper} sx={{ minWidth: "600px"}}>
             <Table>
                 <TableHead>
                     <TableRow>
