@@ -220,3 +220,62 @@ export const File_download = async() => {
     
   }
 }
+
+
+
+
+//for deleting File
+
+export const File_delete = async(id) => {
+  try {
+    const res = await fetch(`${BASE_URL}chartDB/files/${id}`,{
+      method: "DELETE",
+      headers:getAuthHeader(),
+      body: JSON.stringify({id}),
+    });
+    const data = await res.json();
+    return data;
+    
+  } catch (error) {
+    console.error("Error in Deleting File",error);
+    throw error;
+  }
+}
+
+
+//For Uploading Video In VideoUpload.js
+
+export const Video_upload = async(FileName,Base64File) =>{
+
+  try {
+     const res = await fetch(`${BASE_URL}chartDB/videos/create`,{
+      method: "POST",
+      headers: getAuthHeader(),
+      body: JSON.stringify({FileName,Base64File}),
+      
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+     console.error("Problem in VideoFile Uploading",error);
+    throw error;
+  }
+}
+
+
+//for Viewing Video in VideoView.js
+
+export const Video_view = async() => {
+  try {
+      const res = await fetch(`${BASE_URL}chartDB/videos`,{
+        method: "GET",
+        headers:getAuthHeader(),
+
+      });
+
+      return await res.json();
+  } catch (error) {
+    console.error("Problem in VideoFile Viewing",error);
+    throw error;
+  }
+}

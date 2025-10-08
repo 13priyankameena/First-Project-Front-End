@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { RiDashboard3Line } from "react-icons/ri";
-import { RxComponent2 } from "react-icons/rx";
-import { FaWpforms } from "react-icons/fa6";
-import { LiaTableSolid } from "react-icons/lia";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { TbTypography, TbFavicon } from "react-icons/tb";
+import TableChartIcon from "@mui/icons-material/TableChart";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import VideoFileIcon from "@mui/icons-material/VideoFile";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+
 import { Box, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
  
@@ -44,7 +43,8 @@ sx={{
         {/* Dashboard */}
         <ListItemButton component={Link} to="/Dashboard">
           <ListItemIcon>
-            <RiDashboard3Line size={20} />
+           
+               <DashboardIcon color="primary" sx={{fontSize: 20 }} />
           </ListItemIcon>
           <ListItemText primary="Dashboard" 
           />
@@ -53,7 +53,7 @@ sx={{
         {/* Forms */}
         <ListItemButton component={Link} to="/Forms">
           <ListItemIcon>
-            <FaWpforms size={20} />
+           <AssignmentIcon color="primary" sx={{ fontSize: 20 }}/>
           </ListItemIcon>
           <ListItemText primary="Forms" />
         </ListItemButton>
@@ -61,7 +61,7 @@ sx={{
         {/* Table */}
         <ListItemButton component={Link} to="/Table">
           <ListItemIcon>
-            <LiaTableSolid size={20} />
+            <TableChartIcon color="primary" sx={{ fontSize: 20 }} />
           </ListItemIcon>
           <ListItemText primary="Table" />
         </ListItemButton>
@@ -70,11 +70,19 @@ sx={{
         {/*FileUpload */}
         <ListItemButton component={Link} to="/FileUpload">
         <ListItemIcon>
-        <UploadFileIcon />
+        <UploadFileIcon color="primary" sx={{ fontSize: 20 }} />
         </ListItemIcon>
-        <ListItemText primary="FileUpload"/>
+        <ListItemText primary="File Upload"/>
         </ListItemButton>
         
+
+        {/* VideoUpload */}
+        <ListItemButton component={Link} to="/VideoUpload">
+          <ListItemIcon>
+        <VideoFileIcon color="primary" />
+          </ListItemIcon>
+          <ListItemText primary="Video Upload"/>
+        </ListItemButton>
       </List>
     
 

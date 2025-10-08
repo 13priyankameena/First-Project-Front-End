@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { File_download } from '../../API/api.js';
+import { File_download,File_delete } from '../../API/api.js';
 import {
     Table,
     TableBody,
@@ -41,8 +41,8 @@ function FileDownload({ refresh }) {
 
                             for (let i = 0; i < byteCharacters.length; i++) {
                                 byteNumbers[i] = byteCharacters.charCodeAt(i); //returns the numeric Unicode/ASCII code of the character at position i.
-                                                                                //Example: "A".charCodeAt(0) → 65
-                                                                                //byteNumbers is an array of numbers representing the raw bytes of the file.
+                                //Example: "A".charCodeAt(0) → 65
+                                //byteNumbers is an array of numbers representing the raw bytes of the file.
                             }
                             const byteArray = new Uint8Array(byteNumbers); //This is exactly the format needed to represent a binary file in memory.
 
@@ -57,11 +57,11 @@ function FileDownload({ refresh }) {
                         return file;
                     });
 
-                     setFile(convertedFiles);
+                    setFile(convertedFiles);
                 }
 
 
-                   
+
             } catch (error) {
                 console.log("Error in Loading File", error);
             }
@@ -72,54 +72,83 @@ function FileDownload({ refresh }) {
     }, [refresh]);
 
 
+     // 🔹 DELETE HANDLER
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this file?")) {
+      const result = await File_delete(id);
+      if (result.success) {
+        alert("File deleted successfully!");
+        // remove deleted file from UI without reloading
+        setFile((prevFiles) => prevFiles.filter((f) => f._id !== id));
+      } else {
+        alert("Error deleting file!");
+      }
+    }
+  };
+
+
     return (
 
-        <TableContainer component={Paper} sx={{ minWidth: "600px"}}>
+        <TableContainer component={Paper} sx={{ minWidth: "600px" }}>
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>File Name</TableCell>
                         <TableCell>Images</TableCell>
                         <TableCell>Download</TableCell>
-                      
+                        <TableCell>DELETE</TableCell>
                     </TableRow>
 
 
 
                 </TableHead>
+
+                
                 <TableBody>
                     {files.map((file, index) => (
                         <TableRow key={index}>
                             <TableCell>{file.FileName}</TableCell>
-                    
-                            <TableCell>{file.mimeType?.startsWith("image/") ? (
-                  <img
-                    src={file.fileUrl}
-                    alt={file.FileName}
-                    width="50"
-                    height="50"
-                  />
-                ) : (
-                  <span>{file.FileName}</span>
-                )}</TableCell>
 
-                <TableCell>
-                    
-                    <Button
+                            <TableCell>{file.mimeType?.startsWith("image/") ? (
+                                <img
+                                    src={file.fileUrl}
+                                    alt={file.FileName}
+                                    width="50"
+                                    height="50"
+                                />
+                            ) : (
+                                <span>{file.FileName}</span>
+                            )}</TableCell>
+
+                            <TableCell>
+
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    onClick={() => {
+                                        const link = document.createElement("a");
+                                        link.href = file.fileUrl;
+                                        link.download = file.FileName; // set the original filename
+                                        document.body.appendChild(link);
+                                        link.click();
+                                        document.body.removeChild(link);
+                                    }}
+                                >
+                                    Download
+                                </Button></TableCell>
+
+{/* //for deleting file  */}
+                                <TableCell>
+                <Button
                   variant="contained"
-                  color="primary"
+                  color="error"
                   size="small"
-                  onClick={() => {
-                    const link = document.createElement("a");
-                    link.href = file.fileUrl;
-                    link.download = file.FileName; // set the original filename
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                  }}
+                 onClick={() => handleDelete(file._id)}  //i want send argument with function thatswhy i used here arrow function
                 >
-                  Download
-                </Button></TableCell>
+                  Delete
+                </Button>
+              </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
