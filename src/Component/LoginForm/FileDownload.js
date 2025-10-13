@@ -10,12 +10,24 @@ import {
     Paper,
     Typography,
     Box,
-    Button
+    Button,CircularProgress,LinearProgress
+} from "@mui/material";
+import { toast,ToastContainer } from "react-toastify";
+import {
+ 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+ 
 } from "@mui/material";
 
 function FileDownload({ refresh }) {
 
     const [files, setFile] = useState([]);
+    const [openDialog, setOpenDialog] = useState(false);
+  const [selectedRowId, setSelectedRowId] = useState(null);
+  const [circularUpload,setCircularUpload] = useState(true);
 
     useEffect(() => {
         const Loadfile = async () => {
@@ -24,6 +36,7 @@ function FileDownload({ refresh }) {
                 const loadUploadedFile = await File_download();
 
                 if (loadUploadedFile.success === true) {
+            setCircularUpload(false);
                     const convertedFiles = loadUploadedFile.data.map((file) => {
                         if (file.Base64File) {
 
@@ -58,12 +71,14 @@ function FileDownload({ refresh }) {
                     });
 
                     setFile(convertedFiles);
+                   
                 }
 
 
 
             } catch (error) {
                 console.log("Error in Loading File", error);
+                
             }
 
         }
@@ -71,25 +86,81 @@ function FileDownload({ refresh }) {
         Loadfile();
     }, [refresh]);
 
+// Open delete confirmation dialog
 
-     // 🔹 DELETE HANDLER
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this file?")) {
-      const result = await File_delete(id);
-      if (result.success) {
-        alert("File deleted successfully!");
+const handleDeleteClick = (_id) => {
+    setSelectedRowId(_id);
+    setOpenDialog(true);
+  };
+
+  // Cancel delete (close dialog)
+
+  const handleCancelDelete = () => {
+    setOpenDialog(false);
+    setSelectedRowId(null);
+  };
+
+
+
+     // DELETE HANDLER
+
+
+  const handleConfirmDelete = async () => {
+
+      const result = await File_delete(selectedRowId);
+      try {
+        if (result.success) {
+        toast.success("File deleted successfully!");
+
         // remove deleted file from UI without reloading
-        setFile((prevFiles) => prevFiles.filter((f) => f._id !== id));
-      } else {
-        alert("Error deleting file!");
+        setFile((prevFiles) => prevFiles.filter((f) => f._id !== selectedRowId));
+         } 
+         
+         else {
+         toast.error("Error deleting file!")
+             }
+      } catch (error) {
+        toast.error("Something went wrong while deleting!");
+        
       }
+      finally {
+      setOpenDialog(false);
+      setSelectedRowId(null);
     }
+
+      
+     
+    
   };
 
 
     return (
+<>
+<ToastContainer position="top-right" autoClose={2000} />
 
-        <TableContainer component={Paper} sx={{ minWidth: "600px" }}>
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      
+      transition: "all 0.3s ease-in-out",
+    }}
+  >
+    {circularUpload ? (
+      <>
+        
+        <LinearProgress
+          
+          sx={{ width: "50%",ml:40,mt:20}}
+        />
+        <Typography sx={{ mt: 1 ,ml:40}}>Loading files...</Typography>
+      </>
+    ) : (
+      <TableContainer component={Paper} sx={{ maxWidth: "700px"}}>
+
+          
             <Table>
                 <TableHead>
                     <TableRow>
@@ -144,7 +215,7 @@ function FileDownload({ refresh }) {
                   variant="contained"
                   color="error"
                   size="small"
-                 onClick={() => handleDelete(file._id)}  //i want send argument with function thatswhy i used here arrow function
+                 onClick={() =>handleDeleteClick(file._id)}  //i want send argument with function thatswhy i used here arrow function
                 >
                   Delete
                 </Button>
@@ -155,6 +226,25 @@ function FileDownload({ refresh }) {
 
             </Table>
         </TableContainer>
+    )
+}
+ </Box>
+        {/* DialogBox for delete confirmation */}
+
+        <Dialog open={openDialog} onClose={handleCancelDelete}>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+             <DialogContent>
+          Are you sure you want to delete this file?
+        </DialogContent>
+                    <DialogActions>
+          <Button onClick={handleCancelDelete}>Cancel</Button>
+          <Button onClick={handleConfirmDelete} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+        </Dialog>
+       
+</>
 
     );
 }

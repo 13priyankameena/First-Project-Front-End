@@ -279,3 +279,20 @@ export const Video_view = async() => {
     throw error;
   }
 }
+
+//for deleting video
+
+export const Video_delete = async(id) => {
+  try {
+    const res = await fetch(`${BASE_URL}chartDB/videos/${id}`,{
+      method: "DELETE",
+      headers:getAuthHeader(),
+      body:JSON.stringify({id}),
+    })
+    return await res.json();
+    
+  } catch (error) {
+    console.error("Error in Deleting Video",error);
+    throw error;
+  }
+}

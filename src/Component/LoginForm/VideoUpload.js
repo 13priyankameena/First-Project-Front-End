@@ -5,7 +5,15 @@ import { Video_upload } from '../../API/api.js';
 import VideoFileIcon from '@mui/icons-material/VideoFile';
 import VideoView from './VideoView.js';
 import { Button, Box, Typography, CircularProgress } from "@mui/material";
-
+import { toast,ToastContainer } from "react-toastify";
+import {
+ 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+ 
+} from "@mui/material";
 
 function VideoUpload() {
 
@@ -67,6 +75,7 @@ function VideoUpload() {
 
             if (sendFileRes.success) {
 
+                toast.success("Video Uploaded Successfully");
                 console.log(sendFileRes.message);
 
                 // reset input
@@ -80,14 +89,19 @@ function VideoUpload() {
             }
             else {
                 setError(sendFileRes.message);
+                toast.error(sendFileRes.message);
             }
         } catch (err) {
 
             setError("Something went wrong during upload.");
-            setTimeout(() => setError(""), 5000);
+            setTimeout(() => setError(""), 3000);
             setFile(null);
 
         } finally {
+            setTimeout(() => setError(""), 3000);
+             setTimeout(() => 
+        setFile(null),3000
+      );
             setTimeout(() => {
                 setUploading(false);
             }
@@ -100,9 +114,24 @@ function VideoUpload() {
 
 
     return (
-
+<Box>
+         <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: "monospace",
+                      fontWeight: "bold",
+                      color: "#3f51b5",
+                      mb: 1,
+                      ml: 20,
+                    }}
+                  >
+                    UPLOAD VIDEOS
+                  </Typography>
 
         <Box sx={{ Width: "100%", display: "flex", gap: "50px", padding: "5px" }}>
+
+            
+            <ToastContainer position="top-right" autoClose={2000} />
             <Box
                 sx={{
                     position: "relative",
@@ -193,6 +222,7 @@ function VideoUpload() {
             <Box sx={{width:"50%"}}>
                 <VideoView refresh={refresh}/>
             </Box>
+        </Box>
         </Box>
 
 

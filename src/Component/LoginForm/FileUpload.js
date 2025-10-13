@@ -5,7 +5,15 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { File_upload } from '../../API/api.js';
 import FileDownload from './FileDownload.js';
 
-
+import { toast,ToastContainer } from "react-toastify";
+import {
+ 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+ 
+} from "@mui/material";
 
 function FileBase64Upload() {
 
@@ -54,7 +62,7 @@ function FileBase64Upload() {
   const handleUpload = async () => {
 
     if (!base64File || !file) {
-      alert("Please Select a File");
+      setError("Please select a file first.");
       return;
     }
 
@@ -69,7 +77,8 @@ function FileBase64Upload() {
       console.log(sendFileRes);
 
       if (sendFileRes.success) {
-
+           
+        toast.success("File Uploaded Successfully");
         console.log(sendFileRes.message);
 
         // reset input
@@ -77,12 +86,13 @@ function FileBase64Upload() {
         setBase64File("");
         setMessage(true);
         setTimeout(() => setMessage(false), 3000);
-
+        
         // refresh right table
         setRefresh((r) => !r);
       }
       else {
         setError(sendFileRes.message);
+        toast.error(sendFileRes.message);
       }
     } catch (err) {
 
@@ -91,6 +101,12 @@ function FileBase64Upload() {
       setFile(null);
 
     } finally {
+      setTimeout(() => setError(""), 3000);
+
+      setTimeout(() => 
+        setFile(null),3000
+      );
+
       setTimeout(() => {
         setUploading(false);
       }
@@ -104,7 +120,9 @@ function FileBase64Upload() {
 
 
   return (
+    
     <Box>
+      {/* <ToastContainer position="top-right" autoClose={2000} /> */}
 
       {/* <Typography sx={{fontFamily:"monospace",fontWeight:"bold",ml:"80px",color:" #697eb0"}}>UPLOADS FILES</Typography> */}
       <Typography
@@ -128,7 +146,7 @@ function FileBase64Upload() {
 
         <Box sx={{
           position: "relative",
-          width: "400px",
+          minWidth: "400px",
           maxHeight: "400px",
 
           textAlign: "center",
