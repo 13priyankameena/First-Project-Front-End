@@ -85,7 +85,7 @@ function Headers() {
               fontSize: "20px",
             }}
           >
-            Ready Dashboard
+            Demo Project
           </Typography>
         </Box>
 
