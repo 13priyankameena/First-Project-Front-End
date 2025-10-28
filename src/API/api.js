@@ -96,12 +96,12 @@ export const FetchFormData = async () => {
 
 
 // api.js
-export const SIGNUP_API = async (username, password) => {
+export const SIGNUP_API = async (username, password, email) => {
   try {
     const response = await fetch(`${BASE_URL}chartDB/logins/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     });
 
     return await response.json(); // API response

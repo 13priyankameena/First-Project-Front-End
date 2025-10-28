@@ -12,6 +12,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
+  const[email,setEmail] =useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [Error, setError] = useState({});
@@ -33,6 +34,19 @@ function SignUp() {
 
     else {
       delete errorCopy.username;
+    }
+    setError(errorCopy);
+  }
+
+  const handleEmailChange = (e) =>{
+    const value = e.target.value;
+    setEmail(value);
+
+    let errorCopy ={...Error}
+    if(!value)
+      errorCopy.email = "Email Required";
+    else{
+      delete errorCopy.email;
     }
     setError(errorCopy);
   }
@@ -64,13 +78,13 @@ function SignUp() {
 
    
 
-     if (!username || !password || password !== confirmPassword) {
+     if (!username || !password || password !== confirmPassword || !email) {
     setPasswordError(password !== confirmPassword);
     setApiMessage("Please fix the errors above");
     return;
   }
 
- const data = await SIGNUP_API(username, password);
+ const data = await SIGNUP_API(username, password, email);
 
     if (data.success) {
       setApiMessage("User registered successfully");
@@ -102,19 +116,26 @@ function SignUp() {
 
         <TextField id="tf1"
           label="Enter Username" variant="standard" sx={{ width: 300 }} value={username}
-          onChange={handleUserNameChange} /><br></br><br></br>
+          onChange={handleUserNameChange} /><br></br>
 
         {Error.username && <p style={{ color: "red" }}>{Error.username}</p>}
 
+        <TextField label="Enter Email" id="td2" variant='standard'  sx={{ width: 300 }} value={email} type='email'
+        onChange={handleEmailChange}><br></br><br></br>
+
+        {Error.email && <p style={{ color: "red" }}>{Error.email}</p>}
+
+        </TextField>
+
         <TextField id="tf3"
           label="Enter Password" variant="standard" sx={{ width: 300 }} value={password}
-          onChange={handlePasswordChange} type='password'/><br></br><br></br>
+          onChange={handlePasswordChange} type='password'/><br></br>
 
         {Error.password && <p style={{ color: "red" }}>{Error.password}</p>}
 
 
         <TextField id="tf4"
-          label="Confirm Password" variant="standard" sx={{ width: 300 }} value={confirmPassword}
+          label="Confirm Password" variant="standard" sx={{ width: 300 }} value={confirmPassword} type='password'
           onChange={(e) => setConfirmPassword(e.target.value)}
           onBlur={handlePasswordChangeBlur}
           error={passwordError} // show red border

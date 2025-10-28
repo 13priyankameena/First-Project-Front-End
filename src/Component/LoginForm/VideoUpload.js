@@ -136,7 +136,7 @@ function VideoUpload() {
                 sx={{
                     position: "relative",
                     width: "400px",
-                    maxHeight: "400px",
+                    height: "400px",
 
                     textAlign: "center",
                     padding: 10,

@@ -54,7 +54,7 @@ function Headers() {
         borderTop: "1px solid #cfd9df",
         bgcolor: "white",
         mt: "5px",
-        height: "70px", // fix header height
+        height: {xs: "60px", sm:"70px"}, // fix header height
       }}
     >
       <Toolbar
@@ -85,7 +85,7 @@ function Headers() {
               fontSize: "20px",
             }}
           >
-            Demo Application
+            Ready Dashboard
           </Typography>
         </Box>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
+import './LoginStylesheet.css';
 import {  
     Button 
 } from "@mui/material";
@@ -16,7 +17,7 @@ export default function OTPform({}) {
   const navigate=useNavigate();
 
   const location = useLocation();
-const username = location.state?.username  // ✅ get from navigation state
+const username = location.state?.username  // get from navigation state
 
   const handleVerify = async() =>{
 //  const username = "priyanka";
@@ -49,12 +50,14 @@ try {
   }
 
   return (
+
+    <div className='wrapper'>
      <div
       style={{
         textAlign: "center",
-        marginTop: "50px",
+        // marginTop: "30px",
         padding: "20px",
-        backgroundColor: "#f8f8f8",
+        // backgroundColor: "#f8f8f8",
         borderRadius: "10px",
         width: "fit-content",
         marginLeft: "auto",
@@ -73,7 +76,7 @@ try {
           fontSize: "1.5rem",
           borderRadius: "8px",
           border: "2px solid #1976d2",
-          backgroundColor: "#fff",
+          // backgroundColor: "#fff",
           textAlign: "center",
           color: "#1976d2",
         }}
@@ -81,13 +84,19 @@ try {
     <Button
                             fullWidth
                             variant="contained"
-                            color="primary"
-                            sx={{ mt: 2 }}
+                            // color="Secondary"
+                            sx={{ mt: 2, 
+                              backgroundColor:"white",
+                              color:"#1976d2"
+                            }}
                             type="submit"
                             onClick={handleVerify}
+
+                            
                         >
                             Submit
                         </Button>
+    </div>
     </div>
   );
 }

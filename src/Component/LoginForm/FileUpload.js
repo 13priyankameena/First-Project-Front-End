@@ -147,7 +147,7 @@ function FileBase64Upload() {
         <Box sx={{
           position: "relative",
           minWidth: "400px",
-          maxHeight: "400px",
+          height: "400px",
 
           textAlign: "center",
           padding: 10,

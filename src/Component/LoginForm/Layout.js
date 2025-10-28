@@ -18,7 +18,7 @@ export const Layout = ({ children }) => {
 
        <Box
               sx={{
-                       width: "1510px", 
+                       width: "100%", 
                         margin: "auto",
                         display: "flex",
                          minHeight: "100vh", 
