@@ -26,7 +26,7 @@ export const Login = () => {
     const value=e.target.value;
     setname(value);
 
-    let errorcopy={...Error};
+    let errorcopy = {...Error};
     if(!value)
       errorcopy.username="Username required";
     else
@@ -47,6 +47,7 @@ export const Login = () => {
     } else {
       delete errorCopy.password;
     }
+    if (errorCopy.general) delete errorCopy.general;
     setError(errorCopy);
   }
 
@@ -64,6 +65,7 @@ try {
              console.log(username);
        await sendOTP(username);
         navigate("/OTPverify",{ state: { username } }); 
+        
 
 //OTPverify → route you want to open
 //{ state: { username } } → extra data you’re carrying along
@@ -72,10 +74,11 @@ try {
      }
   
       else {
-       setError(LoginRes.message || "Invalid credentials");
+       setError({general: LoginRes.message || "Invalid credentials"});
       }
-    } catch (err) {
+    }catch (err) {
        console.error("Error:", err);
+      setError({ password: "Something went wrong!" });
       setError("Something went wrong!");
     }
   };
@@ -116,8 +119,8 @@ try {
             <div className='signup'>
                <label>Don't have you an account ? </label>
               <Link to="/SignUp">Sign Up</Link>
-            </div>
-            
+            </div><br></br>
+            {Error.general && <p style={{color:"red"}}>{Error.general}</p>}
             
         </form>
 

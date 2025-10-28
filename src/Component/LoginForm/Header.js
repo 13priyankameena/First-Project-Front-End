@@ -69,7 +69,7 @@ function Headers() {
         {/* Left side - Title */}
         <Box
           sx={{
-            flex: "0 0 20.200%",
+            flex: "0 0 20%",
             borderRight: "1px solid #cfd9df",
             borderBottom: "1px solid #cfd9df",
             display: "flex",
@@ -83,9 +83,11 @@ function Headers() {
               color: "rgb(105, 107, 121)",
               fontWeight: 500,
               fontSize: "20px",
+              alignItems:"center",
+              alignContent:"center"
             }}
           >
-            Ready Dashboard
+            Demo Application
           </Typography>
         </Box>
 

@@ -40,6 +40,7 @@ export const Layout = ({ children }) => {
                      padding: "20px",
                      bgcolor: "#f5f7fa", // light background
                      minHeight: "700px",
+                     
                    }}
       >
 
